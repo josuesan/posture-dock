@@ -9,6 +9,10 @@ import {
   hasSupabaseConfig,
   SUPABASE_TABLE
 } from '@/infrastructure/auth/supabase-auth-gateway';
+import {
+  getSupabasePublishableKey,
+  getSupabaseUrl
+} from '@/infrastructure/auth/supabase-env';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 let cachedClient: SupabaseClient | null = null;
@@ -20,8 +24,8 @@ function getClient() {
 
   if (!cachedClient) {
     cachedClient = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      getSupabaseUrl()!,
+      getSupabasePublishableKey()!
     );
   }
 

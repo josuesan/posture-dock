@@ -3,6 +3,11 @@ import type { Session, SupabaseClient } from '@supabase/supabase-js';
 import type { AuthGateway } from '@/application/ports/auth-gateway';
 import type { AuthUser } from '@/domain/auth/types';
 import { createClient } from '@supabase/supabase-js';
+import {
+  getSupabasePublishableKey,
+  getSupabaseUrl,
+  hasSupabaseEnvConfig
+} from '@/infrastructure/auth/supabase-env';
 import { messages } from '@/translations';
 
 function toAuthUser(session: Session | null): AuthUser | null {
@@ -19,10 +24,7 @@ function toAuthUser(session: Session | null): AuthUser | null {
 let cachedClient: SupabaseClient | null = null;
 
 export function hasSupabaseConfig() {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+  return hasSupabaseEnvConfig();
 }
 
 function getSupabaseBrowserClient() {
@@ -32,8 +34,8 @@ function getSupabaseBrowserClient() {
 
   if (!cachedClient) {
     cachedClient = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      getSupabaseUrl()!,
+      getSupabasePublishableKey()!
     );
   }
 
