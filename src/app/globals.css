@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+
+  --color-ocean-950: #061311;
+  --color-ocean-900: #0a1b18;
+  --color-ocean-850: #102321;
+  --color-ocean-800: #17312c;
+  --color-ocean-700: #21413a;
+  --color-ink: #f2f7f3;
+  --color-mist: #9eb5ac;
+  --color-teal-100: #e6fffb;
+  --color-teal-300: #8edccf;
+  --color-teal-400: #6dc7b6;
+  --color-sand-100: #fff0d3;
+  --color-sand-300: #ffd494;
+  --color-sand-400: #ffbb5c;
+  --color-lime-100: #f2ffd9;
+  --color-lime-300: #cfe992;
+  --color-rose-100: #ffe1df;
+  --color-rose-300: #ffaaa6;
+  --color-rose-400: #ff7d79;
+}
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-ocean-950 font-sans text-ink antialiased;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  ::selection {
+    @apply bg-sand-400/30 text-ink;
+  }
+}
