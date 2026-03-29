@@ -29,7 +29,7 @@ Configura Supabase solo si quieres auth y sync remoto:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
 ```
 
 ## Deploy gratis con Vercel

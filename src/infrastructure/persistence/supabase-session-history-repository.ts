@@ -9,27 +9,10 @@ import {
   hasSupabaseConfig,
   SUPABASE_TABLE
 } from '@/infrastructure/auth/supabase-auth-gateway';
-import {
-  getSupabasePublishableKey,
-  getSupabaseUrl
-} from '@/infrastructure/auth/supabase-env';
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-
-let cachedClient: SupabaseClient | null = null;
+import { createClient as createSupabaseBrowserClient } from '@/utils/supabase/client';
 
 function getClient() {
-  if (!hasSupabaseConfig()) {
-    return null;
-  }
-
-  if (!cachedClient) {
-    cachedClient = createClient(
-      getSupabaseUrl()!,
-      getSupabasePublishableKey()!
-    );
-  }
-
-  return cachedClient;
+  return hasSupabaseConfig() ? createSupabaseBrowserClient() : null;
 }
 
 function sanitizeRemoteRecord(

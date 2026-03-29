@@ -1,14 +1,10 @@
-import type { Session, SupabaseClient } from '@supabase/supabase-js';
+import type { Session } from '@supabase/supabase-js';
 
 import type { AuthGateway } from '@/application/ports/auth-gateway';
 import type { AuthUser } from '@/domain/auth/types';
-import { createClient } from '@supabase/supabase-js';
-import {
-  getSupabasePublishableKey,
-  getSupabaseUrl,
-  hasSupabaseEnvConfig
-} from '@/infrastructure/auth/supabase-env';
 import { messages } from '@/translations';
+import { createClient as createSupabaseBrowserClient } from '@/utils/supabase/client';
+import { hasSupabaseConfig as hasSupabaseEnvConfig } from '@/utils/supabase/env';
 
 function toAuthUser(session: Session | null): AuthUser | null {
   if (!session?.user) {
@@ -21,25 +17,12 @@ function toAuthUser(session: Session | null): AuthUser | null {
   };
 }
 
-let cachedClient: SupabaseClient | null = null;
-
 export function hasSupabaseConfig() {
   return hasSupabaseEnvConfig();
 }
 
 function getSupabaseBrowserClient() {
-  if (!hasSupabaseConfig()) {
-    return null;
-  }
-
-  if (!cachedClient) {
-    cachedClient = createClient(
-      getSupabaseUrl()!,
-      getSupabasePublishableKey()!
-    );
-  }
-
-  return cachedClient;
+  return createSupabaseBrowserClient();
 }
 
 export class SupabaseAuthGateway implements AuthGateway {
