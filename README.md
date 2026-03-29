@@ -4,6 +4,7 @@ PostureDock es un MVP de seguimiento de postura con webcam. Permite iniciar sesi
 
 ## Stack
 
+- Node 24
 - Next.js 16
 - React 19
 - Tailwind CSS v4
@@ -16,6 +17,7 @@ PostureDock es un MVP de seguimiento de postura con webcam. Permite iniciar sesi
 ## Scripts
 
 ```bash
+nvm use 24
 pnpm dev
 pnpm typecheck
 pnpm test
@@ -34,7 +36,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
 
 ## CI/CD con GitHub Actions y Vercel
 
-1. Crea un proyecto en Vercel conectado a este repo.
+1. Crea un proyecto en Vercel para este repo y desconecta la integración nativa de Git si está activa.
 2. Obtiene `VERCEL_PROJECT_ID` y `VERCEL_ORG_ID` con `pnpm exec vercel link`.
 3. Agrega estos secrets en GitHub:
    - `VERCEL_TOKEN`
@@ -44,6 +46,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
 5. El job `quality` corre typecheck, unit tests, Playwright y build.
 6. Un push a una rama distinta de `main` crea Preview Deployment en Vercel.
 7. Un push a `main` crea Production Deployment en Vercel.
+8. La version de Node para local y CI se toma desde `.nvmrc`.
 
 ## Playwright
 
