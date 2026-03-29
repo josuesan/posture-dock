@@ -32,7 +32,7 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
 ```
 
-## Deploy gratis con Vercel
+## CI/CD con GitHub Actions y Vercel
 
 1. Crea un proyecto en Vercel conectado a este repo.
 2. Obtiene `VERCEL_PROJECT_ID` y `VERCEL_ORG_ID` con `pnpm exec vercel link`.
@@ -40,7 +40,10 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
    - `VERCEL_TOKEN`
    - `VERCEL_ORG_ID`
    - `VERCEL_PROJECT_ID`
-4. Cada push a `main` dispara CI y luego deploy en `.github/workflows/deploy-vercel.yml`.
+4. El pipeline vive en `.github/workflows/pipeline.yml`.
+5. El job `quality` corre typecheck, unit tests, Playwright y build.
+6. Un push a una rama distinta de `main` crea Preview Deployment en Vercel.
+7. Un push a `main` crea Production Deployment en Vercel.
 
 ## Playwright
 
